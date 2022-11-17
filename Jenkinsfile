@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Run') {
             steps {
-                sh "docker run -itd --name nino-${BUILD_ID} nino:${BUILD_ID} -p 3000:3000"
+                sh "docker run -itd -p 3000:3000 --name nino-${BUILD_ID} nino:${BUILD_ID} "
             }
     }
 }
