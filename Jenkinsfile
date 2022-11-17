@@ -1,28 +1,32 @@
 pipeline {
-    agent any
+    agent {
+        label 'nino'
+    }
+
     stages {
-        stage("Initialize") {
+        stage('Clean') {
             steps {
                 cleanWs()
             }
         }
-        stage('Get SCM') {
+        stage('Clone') {
             steps {
-                git "https://github.com/ranazrad/simple-webapp-nodejs.git"
-                sh "cat Jenkinsfile"
+                git 'https://github.com/nitzanel/simple-webapp-nodejs.git'
+                sh 'echo hello'
             }
         }
         stage('Build') {
             steps {
-                sh "docker build -t nodewebapp ."
-                sh "docker images"
+                nodejs('nodejs') {
+                    sh 'npm install'
+                }
             }
         }
-        stage('Deploy') {
+        stage('Test') {
             steps {
-                sh "docker kill nodewebapp"
-                sh "docker rm nodewebapp"
-                sh "docker run -itd --name nodewebapp -p 8081:3000 nodewebapp:latest &"
+                nodejs('nodejs') {
+                    sh 'npm test'
+                }
             }
         }
     }
