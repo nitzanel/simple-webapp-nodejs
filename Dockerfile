@@ -1,5 +1,5 @@
 FROM node:8
-workdir /app
+WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm run test

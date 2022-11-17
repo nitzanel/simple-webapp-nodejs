@@ -12,22 +12,15 @@ pipeline {
         }
         stage('Clone') {
             steps {
-                sh "echo test!!!"
+                sh 'echo test!!!'
                 checkout scm
             }
         }
         stage('Build') {
             steps {
-                nodejs('nodejs') {
-                    sh 'npm install'
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                nodejs('nodejs') {
-                    sh 'npm test'
-                }
+                sh "docker build . -f Dockerfile -t nino:${BUILD_ID}"
+                sh "docker images list"
+                //sh "docker run -it nino:${BUILD_ID}"
             }
         }
     }
