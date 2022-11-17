@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh "docker build . -f Dockerfile -t nino:${BUILD_ID}"
-                sh "docker images list"
+                sh "docker images list -a"
                 //sh "docker run -it nino:${BUILD_ID}"
             }
         }
