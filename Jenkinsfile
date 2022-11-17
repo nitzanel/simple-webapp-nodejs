@@ -12,6 +12,7 @@ pipeline {
         stage('Clone') {
             steps {
                 git 'https://github.com/nitzanel/simple-webapp-nodejs.git'
+                sh "echo test!!!"
             }
         }
         stage('Build') {
